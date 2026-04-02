@@ -5,9 +5,11 @@ interface BingoModalProps {
   currentCall: number | null;
   calledNumbers: number[];
   onClose: () => void;
+  playerId?: string;
+  prizeAmount?: string;
 }
 
-export default function BingoModal({ show, currentCall, calledNumbers, onClose }: BingoModalProps) {
+export default function BingoModal({ show, currentCall, calledNumbers, onClose, playerId = "P30181", prizeAmount = "$416" }: BingoModalProps) {
   if (!show) return null;
 
   // Auto close modal after 5 seconds
@@ -16,8 +18,8 @@ export default function BingoModal({ show, currentCall, calledNumbers, onClose }
   }, 5000);
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-      <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 lg:p-8 max-w-sm lg:max-w-md w-full shadow-2xl border-2 border-green-500/50 relative">
+    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 overflow-auto">
+      <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 lg:p-8 w-full shadow-2xl border-2 border-green-500/50 relative" style={{ maxWidth: '400px' }}>
         {/* Last Call Number - Top Right Corner */}
         {currentCall && (
           <div className="absolute top-4 right-4 bg-gradient-to-br from-amber-500 via-orange-500 to-red-500 rounded-lg p-2 shadow-xl border-2 border-amber-400/50">
@@ -28,7 +30,7 @@ export default function BingoModal({ show, currentCall, calledNumbers, onClose }
         
         {/* Player ID and Amount */}
         <div className="text-center mb-4">
-          <div className="text-gray-400 text-sm mb-3">Player: P62159</div>
+          <div className="text-gray-400 text-sm mb-3">Player: {playerId}</div>
           
           {/* 5x5 Board Display under Player ID */}
           <div className="flex justify-center mb-4">
@@ -100,7 +102,7 @@ export default function BingoModal({ show, currentCall, calledNumbers, onClose }
             </div>
           </div>
           
-          <div className="text-3xl lg:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-600 mb-4">$440</div>
+          <div className="text-3xl lg:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-600 mb-4">{prizeAmount}</div>
         </div>
         
         {/* Status Message */}
